@@ -226,3 +226,27 @@ footer {
     font-size: 1.8rem;
   }
 }
+body.dark-mode {
+  background-color: #111;
+  color: #fff;
+  transition: background 0.5s, color 0.5s;
+}
+
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: #222;
+}
+
+body.dark-mode .dish,
+body.dark-mode .menu-item,
+body.dark-mode .about,
+body.dark-mode .contact {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+body.dark-mode .btn,
+body.dark-mode button {
+  background-color: #ff9500;
+  color: #fff;
+}
