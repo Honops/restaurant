@@ -6,7 +6,7 @@ const toggleBtn = document.getElementById("theme-toggle");
 
 if (toggleBtn) {
   toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
+    document.body.classList.toggle("dark-mode");
 
     if (document.body.classList.contains("light-mode")) {
       toggleBtn.textContent = "☀️";
