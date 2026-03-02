@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Hono Restaurant</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+<h1>Hono Restaurant</h1>
+<nav id="nav-links">
+<a href="index.html">Home</a>
+<a href="menu.html">Menu</a>
+<a href="about.html">About</a>
+<a href="gallery.html">Gallery</a>
+<a href="contact.html">Contact</a>
+</nav>
+<button id="theme-toggle">🌙</button>
+<div id="menu-toggle">☰</div>
+</header>
+
+<section class="contact reveal">
+<h2>Réservation</h2>
+
+<img src="https://cdn.jsdelivr.net/gh/Honops/imagesrestaurantsite/images/staff/img19.jpg?width=800" class="contact-img" alt="Restaurant contact">
+
+<form>
+<label>Nom</label>
+<input type="text" placeholder="Votre nom" required>
+
+<label>Email</label>
+<input type="email" placeholder="Votre email" required>
+
+<label>Date</label>
+<input type="date" required>
+
+<label>Nombre de personnes</label>
+<input type="number" min="1" max="10" required>
+
+<label>Message</label>
+<textarea placeholder="Message..."></textarea>
+
+<button type="submit">Réserver</button>
+</form>
+
+<p class="note">
+⚠️ Ceci est une démonstration de site web — aucune réservation réelle.
+</p>
+</section>
+
+<footer>
+<p>© 2026 Hono Restaurant</p>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
