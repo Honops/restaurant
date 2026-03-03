@@ -103,3 +103,65 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+// =====================
+// LIGHTBOX PREMIUM
+// =====================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const images = Array.from(document.querySelectorAll(".gallery-grid img, .dish img"));
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const closeBtn = document.getElementById("lightbox-close");
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = images[currentIndex].src;
+    lightbox.style.display = "flex";
+    lightbox.style.opacity = 1;
+  }
+
+  function closeLightbox() {
+    lightbox.style.opacity = 0;
+    setTimeout(() => lightbox.style.display = "none", 300);
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  images.forEach((img, index) => {
+    img.addEventListener("click", () => openLightbox(index));
+  });
+
+  closeBtn.addEventListener("click", closeLightbox);
+  prevBtn.addEventListener("click", showPrev);
+  nextBtn.addEventListener("click", showNext);
+
+  // Navigation clavier
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.style.display === "flex") {
+      if (e.key === "ArrowLeft") showPrev();
+      if (e.key === "ArrowRight") showNext();
+      if (e.key === "Escape") closeLightbox();
+    }
+  });
+
+  // Swipe mobile (simple)
+  let startX = 0;
+  lightbox.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+  lightbox.addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if (endX - startX > 50) showPrev();
+    if (startX - endX > 50) showNext();
+  });
+});
