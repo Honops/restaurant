@@ -21,11 +21,7 @@ let savedTheme = localStorage.getItem("theme");
 if (!savedTheme) {
   // Pas de thème enregistré → vérifie l'heure
   const hour = new Date().getHours();
-  if (hour >= 18 || hour < 6) {
-    savedTheme = "dark";
-  } else {
-    savedTheme = "light";
-  }
+  savedTheme = (hour >= 18 || hour < 6) ? "dark" : "light";
 }
 
 // Applique le thème initial
@@ -74,35 +70,8 @@ function revealOnScroll() {
 }
 
 window.addEventListener("scroll", revealOnScroll);
+revealOnScroll(); // Déclenche au chargement
 
-// Déclenche au chargement
-revealOnScroll();
-// =====================
-// LIGHTBOX IMAGE VIEWER
-// =====================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const images = document.querySelectorAll(".gallery-grid img, .dish img");
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-
-  if (images && lightbox && lightboxImg) {
-
-    images.forEach(img => {
-      img.addEventListener("click", () => {
-        lightbox.style.display = "flex";
-        lightboxImg.src = img.src;
-      });
-    });
-
-    lightbox.addEventListener("click", () => {
-      lightbox.style.display = "none";
-    });
-
-  }
-
-});
 // =====================
 // LIGHTBOX PREMIUM
 // =====================
@@ -126,15 +95,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function closeLightbox() {
     lightbox.style.opacity = 0;
-    setTimeout(() => lightbox.style.display = "none", 300);
+    setTimeout(() => (lightbox.style.display = "none"), 300);
   }
 
-  function showPrev() {
+  function showPrev(e) {
+    if (e) e.stopPropagation(); // empêche le clic de fermer
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     lightboxImg.src = images[currentIndex].src;
   }
 
-  function showNext() {
+  function showNext(e) {
+    if (e) e.stopPropagation(); // empêche le clic de fermer
     currentIndex = (currentIndex + 1) % images.length;
     lightboxImg.src = images[currentIndex].src;
   }
@@ -147,6 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
   prevBtn.addEventListener("click", showPrev);
   nextBtn.addEventListener("click", showNext);
 
+  // Fermer si clic en dehors de l'image
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
   // Navigation clavier
   document.addEventListener("keydown", (e) => {
     if (lightbox.style.display === "flex") {
@@ -156,11 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Swipe mobile (simple)
+  // Swipe mobile simple
   let startX = 0;
-  lightbox.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-  lightbox.addEventListener("touchend", e => {
-    let endX = e.changedTouches[0].clientX;
+  lightbox.addEventListener("touchstart", (e) => (startX = e.touches[0].clientX));
+  lightbox.addEventListener("touchend", (e) => {
+    const endX = e.changedTouches[0].clientX;
     if (endX - startX > 50) showPrev();
     if (startX - endX > 50) showNext();
   });
