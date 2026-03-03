@@ -279,3 +279,46 @@ body.dark-mode button {
 body.dark-mode .hero::before {
   background: rgba(0, 0, 0, 0.6);
 }
+
+/* ======================
+   IMAGE HOVER EFFECT
+====================== */
+
+.gallery-grid img,
+.dish img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+/* effet zoom */
+.gallery-grid img:hover,
+.dish img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+/* empêche le débordement lors du zoom */
+.gallery-grid,
+.dish {
+  overflow: hidden;
+}
+/* ======================
+   LIGHTBOX
+====================== */
+
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
